@@ -1,6 +1,5 @@
 package com.estudos.demo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,25 +8,47 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProdutoService {
 
-    private final List<Produto> produtos = new ArrayList<>();
+    private final ProdutoRepository repository;
+
+    public ProdutoService(ProdutoRepository repository) {
+        this.repository = repository;
+    }
 
     public Produto criarProduto(Produto produto) {
-        produtos.add(produto);
-        return produto;
+        ProdutoEntity entidade = new ProdutoEntity(
+                produto.id(), produto.nome(), produto.preco()
+        );
+
+        ProdutoEntity salvo = repository.save(entidade);
+        return paraProduto(salvo);
     }
 
     public List<Produto> listarProdutos() {
-        return produtos;
+        return repository.findAll().stream()
+                .map(this::paraProduto)
+                .toList();
     }
 
     public Optional<Produto> buscarPorId(Long id) {
-        return produtos.stream()
-                .filter(produto -> produto.id().equals(id))
-                .findFirst();
+        return repository.findById(id)
+                .map(this::paraProduto);
     }
 
     public boolean excluirPorId(Long id) {
-        return produtos.removeIf(produto -> produto.id().equals(id));
+        if (!repository.existsById(id)) {
+            return false;
+        }
+
+        repository.deleteById(id);
+        return true;
+    }
+
+    private Produto paraProduto(ProdutoEntity entidade) {
+        return new Produto(
+                entidade.getId(),
+                entidade.getNome(),
+                entidade.getPreco()
+        );
     }
 
 }
