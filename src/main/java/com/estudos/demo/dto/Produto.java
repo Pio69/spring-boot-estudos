@@ -1,4 +1,6 @@
-package com.estudos.demo;
+package com.estudos.demo.dto;
+
+
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +14,8 @@ public record Produto(
         String nome,
 
         @Positive(message = "O preço deve ser maior que zero")
-        double preco
+        double preco,
+
+        Long categoriaId
 ) {
 }

@@ -1,4 +1,6 @@
-package com.estudos.demo;
+package com.estudos.demo.exception;
+
+
 
 import java.util.HashMap;
 import java.util.Map;

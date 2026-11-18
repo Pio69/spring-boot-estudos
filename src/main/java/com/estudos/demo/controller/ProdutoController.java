@@ -1,4 +1,7 @@
-package com.estudos.demo;
+package com.estudos.demo.controller;
+
+import com.estudos.demo.service.ProdutoService;
+import com.estudos.demo.dto.Produto;
 
 import java.util.List;
 

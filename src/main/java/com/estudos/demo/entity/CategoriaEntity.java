@@ -1,26 +1,24 @@
-package com.estudos.demo;
+package com.estudos.demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "produtos")
-public class ProdutoEntity {
+@Table(name = "categorias")
+public class CategoriaEntity {
 
     @Id
     private Long id;
 
     private String nome;
-    private double preco;
 
-    protected ProdutoEntity() {
+    protected CategoriaEntity() {
     }
 
-    public ProdutoEntity(Long id, String nome, double preco) {
+    public CategoriaEntity(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.preco = preco;
     }
 
     public Long getId() {
@@ -29,9 +27,5 @@ public class ProdutoEntity {
 
     public String getNome() {
         return nome;
-    }
-
-    public double getPreco() {
-        return preco;
     }
 }
